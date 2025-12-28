@@ -1,11 +1,12 @@
 #include <cstdint>
 #include <vector>
-
-const int16_t ADD= 3;
-const int16_t AND= 5;
-const int16_t XOR= 7;
-const int16_t SHIFT = 9;
-const int16_t SUB = 10;
+#include <iostream>
+#define ADD 3
+#define AND 5
+#define XOR 7
+#define SHIFT  9
+#define SUB 4
+const std::vector<int16_t> ALUOPS {3,5,7,9,10};
 
 int16_t ALU(int16_t acc_val, int16_t op_code, int16_t memory_val, bool &aeb_flag){
     switch (op_code)
@@ -63,7 +64,7 @@ int16_t ALU(int16_t acc_val, int16_t op_code, int16_t memory_val, bool &aeb_flag
 
 class CPU{
     private:
-        bool run_flag = false;
+        bool run_flag = true;
         bool aeb = false;
         int16_t ACC = 0;
         u_int16_t PC = 0;
@@ -74,7 +75,73 @@ class CPU{
         }
 
        void Step(){
-            pmemory->read(PC)
+            u_int16_t ins = pmemory->read(PC);
+            u_int16_t opcode = ins >> 12 ;
+            u_int16_t ins_address = ((ins << 4) >> 4) | 4095; // 0000 0000 0000 0000
+            switch (opcode)           
+            {
+            case 0:
+                run_flag = false;
+                break;
+            case 1:
+                ACC = pmemory->read(ins_address);
+                PC += 1;
+                break;
+            case 2:
+                pmemory->write(ins_address, ACC);
+                PC += 1;
+                break;
+            case 3:
+                ACC= ALU(ACC, opcode, pmemory->read(ins_address),aeb);
+                PC += 1;
+                break;
+            case 4:
+                ACC= ALU(ACC, opcode, pmemory->read(ins_address),aeb);
+                PC += 1;
+                break;
+            case 5:
+                std::cin >> ACC; // needs stricter input checking, has to be numeric, ok for now
+                PC += 1;
+                break;
+            case 6:
+                std::cout << ACC;
+                PC += 1;
+                break;
+            case 7:
+                PC = pmemory->read(ins_address);
+                break;
+            case 8:
+                if (ACC == 0) { 
+                    PC += 2 ;
+                    break;
+                } 
+                PC+= 1;
+                break;
+            case 9:
+                if (ACC > 0) { 
+                    PC += 2 ;
+                    break;
+                } 
+                PC+= 1;
+                break;
+            case 10:
+                if (aeb) { 
+                    PC += 2 ;
+                    break;
+                } 
+                PC+= 1;
+                break;
+            case 11:
+               u_int16_t target_address = pmemory->read(ins_address); // must verify that there are no shenanigans when it comes to types
+                ACC = pmemory->read(target_address);
+                PC += 1;
+                break;
+            case 12:
+            
+            default:
+                break;
+            }
+
         }
 
 
