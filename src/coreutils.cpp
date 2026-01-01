@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <climits>
+#include "../include/coreutils.h++"
 #define HALT_ 0
 #define LOAD_ 1
 #define STORE_ 2
@@ -60,44 +61,34 @@ int16_t ALU(int16_t acc_val, int16_t op_code, int16_t memory_val, bool &aeb_flag
         }
  }
 
- class RAM{
 
-    private:
-    std::vector<uint16_t> memory;
-    public:
 
-    RAM(){
+    RAM::RAM(){
         memory.resize(4096, 0);
     }
 
-    uint16_t read(uint16_t address) {
+    uint16_t RAM::read(uint16_t address) {
         if (address >= 4096) return 0; // Bounds checking
         return memory[address];
     }
 
-    void write(uint16_t address, uint16_t value) {
+    void RAM::write(uint16_t address, uint16_t value) {
         if (address < 4096) {
             memory[address] = value;
         }
     }
-};
 
-class CPU{
-    private:
-        bool run_flag = true;
-        bool aeb = false;
-        int16_t ACC = 0;
-        uint16_t PC = 0;
-        RAM* pmemory =nullptr;
-    public:
-        CPU(RAM* rawMemoryPointer){
+
+
+        CPU::CPU(RAM* rawMemoryPointer){
             pmemory = rawMemoryPointer;
         }
-        bool Status(){
+
+        bool CPU::Status(){
             return run_flag;
         }
         // Main Step Function
-       void Step(){
+       void CPU::Step(){
             uint16_t ins = pmemory->read(PC);
             uint16_t opcode = ins >> 12 ;
             uint16_t ins_address = ins & 0x0FFF; // 0000 0000 0000 0000
@@ -123,11 +114,12 @@ class CPU{
                 PC += 1;
                 break;
             case INPUT_:
+                std::cout << "INPUT:  >> ";
                 std::cin >> ACC; // needs stricter input checking, has to be numeric, ok for now
                 PC += 1;
                 break;
             case OUTPUT_:
-                std::cout << ACC;
+                std::cout << "OUTPUT: " << ACC << "\n";
                 PC += 1;
                 break;
             case JUMP_:
@@ -190,4 +182,4 @@ class CPU{
 
 
 
-    };
+    

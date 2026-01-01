@@ -42,11 +42,11 @@ public:
 // ===== CPU =====
 class CPU {
 private:
-    bool run_flag;
-    bool aeb;
-    int16_t ACC;
-    uint16_t PC;
-    RAM* pmemory;
+    bool run_flag = true;
+    bool aeb = false;
+    int16_t ACC = 0;
+    uint16_t PC = 0;
+    RAM* pmemory =nullptr;
 
 public:
     explicit CPU(RAM* rawMemoryPointer);
