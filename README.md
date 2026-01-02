@@ -71,13 +71,13 @@ The Von Neumann architecture is foundational to modern computing. Key characteri
 
 ### Key Features
 
-- ✅ 16-bit instruction word format
-- ✅ 4096 words of addressable memory (12-bit addresses)
-- ✅ 16 opcodes covering arithmetic, logic, control flow, and I/O
-- ✅ Two-pass assembler with label support
-- ✅ Indirect addressing modes (LOADI, STOREI)
-- ✅ Overflow detection via error flag
-- ✅ Interactive I/O through stdin/stdout
+- 16-bit instruction word format
+- 4096 words of addressable memory (12-bit addresses)
+- 16 opcodes covering arithmetic, logic, control flow, and I/O
+- Two-pass assembler with label support
+- Indirect addressing modes (LOADI, STOREI)
+- Overflow detection via error flag
+- Interactive I/O through stdin/stdout
 
 ---
 
@@ -1250,10 +1250,10 @@ val3: DATA 30
 ## Roadmap
 
 ### Version 1.0 (Current)
-- ✅ Basic CPU emulation
-- ✅ Two-pass assembler
-- ✅ 16 instruction set
-- ✅ Indirect addressing
+- Basic CPU emulation
+- Two-pass assembler
+- 16 instruction set
+- Indirect addressing
 
 ### Version 1.1 (Planned)
 - [ ] Improved error messages in assembler
@@ -1278,7 +1278,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- Inspired by classic computer architecture courses
+- Inspired by classic computer architecture courses (shoutout CS201!!)
 - Based on Von Neumann's original architecture concepts
 - Built for educational purposes
 
