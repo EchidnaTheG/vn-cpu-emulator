@@ -3,22 +3,6 @@
 #include <iostream>
 #include <climits>
 #include "../include/coreutils.h++"
-#define HALT_ 0
-#define LOAD_ 1
-#define STORE_ 2
-#define ADD_ 3
-#define SUB_ 4
-#define INPUT_ 5
-#define OUTPUT_ 6
-#define JUMP_ 7
-#define SKIPZERO_ 8
-#define SKIPPOS_ 9
-#define SKIPERR_ 10
-#define LOADI_ 11
-#define STOREI_ 12
-#define SHIFT_ 13
-#define AND_ 14
-#define XOR_ 15
 
 
 
