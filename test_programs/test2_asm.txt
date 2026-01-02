@@ -1,0 +1,33 @@
+INPUT 0
+STORE n
+OUTPUT 0       ; Print starting number
+
+loop: LOAD n
+      SUB one
+      SKIPZERO 0   ; If n-1 == 0, we are done
+      JUMP check
+      HALT 0       ; End of program
+
+check: LOAD n
+       AND one     ; Check if Odd (n & 1)
+       SKIPZERO 0  ; If result is 0, it's Even. Skip next jump.
+       JUMP is_odd
+       JUMP is_even
+
+is_even: LOAD n
+         SHIFT negone  ; Divide by 2 (Shift Right 1)
+         STORE n
+         OUTPUT 0
+         JUMP loop
+
+is_odd:  LOAD n
+         ADD n      ; n * 2
+         ADD n      ; n * 3
+         ADD one    ; 3n + 1
+         STORE n
+         OUTPUT 0
+         JUMP loop
+
+n: DATA 0
+one: DATA 1
+negone: DATA -1

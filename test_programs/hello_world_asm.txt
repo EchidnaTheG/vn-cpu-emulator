@@ -1,8 +1,0 @@
-INPUT 0
-STORE number
-ADD one
-OUTPUT 0
-HALT 0
-
-one: DATA 1
-number: DATA 0

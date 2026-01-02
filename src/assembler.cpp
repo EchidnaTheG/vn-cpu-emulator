@@ -4,6 +4,7 @@
 #include "../include/coreutils.h++"
 #include <map>
 
+// ===== OPCODE KEY STRING INT VALUE PAIR IN MAP =====
 std::map<std::string, uint16_t> opcodes = {
     {"HALT",     0},
     {"LOAD",     1},
@@ -23,9 +24,11 @@ std::map<std::string, uint16_t> opcodes = {
     {"XOR",      15},
     {"DATA",     16}
 };
+
+// Assembler only supports for now one file target
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        std::cerr << "Usage: ./emulator <filename>\n";
+        std::cerr << "Usage: ./assembler <filename>\n";
         return 1;
     }
     std::string filename = argv[1];
@@ -33,11 +36,11 @@ int main(int argc, char* argv[]) {
     std::string line;
     std::map<std::string, uint16_t> SymbolTable;
     std::vector<std::string> BinaryOutput;
-    int count = 1;
+    int count = 0;
 
     // first pass
     while (std::getline(file, line)){ 
-        if (line.empty()) { count ++ ; continue;}
+        if (line.empty()) {continue;}
         std::stringstream ss(line);
         std::string segment;
         std::vector<std::string> tokens;
@@ -46,10 +49,10 @@ int main(int argc, char* argv[]) {
 
         }
         if (tokens.empty()){
-            count++;
             continue;
         }
         std::string token = tokens[0];
+        if(!token.empty() && token.front() == ';') {continue;}
         if (!token.empty() && token.back() == ':'){
             token.pop_back();
             SymbolTable[token] = count;
@@ -76,6 +79,7 @@ int main(int argc, char* argv[]) {
         }
         if (tokens.empty()) {continue;}
         std::string token = tokens[0];
+        if(!token.empty() && token.front() == ';') {continue;}
         int a = 0 ; int b = 1 ;
         if (!token.empty() && token.back() == ':'){ 
             a++;
@@ -104,7 +108,6 @@ int main(int argc, char* argv[]) {
             std::string finalBinary = opbits.to_string() + adrbits.to_string();
             BinaryOutput.push_back(finalBinary);
         }
-        
         std::ofstream outFile("out.txt");
         for (const auto& binLine : BinaryOutput) {
             outFile << binLine << "\n";

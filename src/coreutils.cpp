@@ -107,7 +107,7 @@ int16_t ALU(int16_t acc_val, int16_t op_code, int16_t memory_val, bool &aeb_flag
                 PC += 1;
                 break;
             case JUMP_:
-                PC = pmemory->read(ins_address);
+                PC = ins_address;
                 break;
             case SKIPZERO_:
                 if (ACC == 0) { 

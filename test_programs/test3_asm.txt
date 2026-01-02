@@ -1,0 +1,60 @@
+; --- FILL ARRAY ---
+
+; 1. Setup Pointer (50)
+LOAD ptr
+STORE ptr_temp
+
+; 2. Load Value (10) and Write it
+LOAD val1        ; ACC becomes 10
+STOREI ptr_temp  ; Writes 10 to address 50
+
+; --- NEXT ITEM ---
+
+; 1. Setup Pointer (51)
+LOAD ptr
+ADD one
+STORE ptr_temp
+
+; 2. Load Value (20) and Write it
+LOAD val2        ; ACC becomes 20
+STOREI ptr_temp  ; Writes 20 to address 51
+
+; --- NEXT ITEM ---
+
+; 1. Setup Pointer (52)
+LOAD ptr
+ADD two
+STORE ptr_temp
+
+; 2. Load Value (30) and Write it
+LOAD val3        ; ACC becomes 30
+STOREI ptr_temp  ; Writes 30 to address 52
+
+; --- READ BACK ---
+
+LOAD ptr       ; Reset pointer to 50
+STORE ptr_temp
+LOADI ptr_temp ; Read from (50) -> ACC is 10
+OUTPUT 0       
+
+LOAD ptr
+ADD one
+STORE ptr_temp
+LOADI ptr_temp ; Read from (51) -> ACC is 20
+OUTPUT 0       
+
+LOAD ptr
+ADD two
+STORE ptr_temp
+LOADI ptr_temp ; Read from (52) -> ACC is 30
+OUTPUT 0       
+
+HALT 0
+
+ptr: DATA 50
+ptr_temp: DATA 0
+one: DATA 1
+two: DATA 2
+val1: DATA 10
+val2: DATA 20
+val3: DATA 30

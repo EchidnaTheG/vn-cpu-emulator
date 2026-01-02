@@ -1,0 +1,29 @@
+INPUT 0          ; Enter 10
+STORE A
+OUTPUT 0         ; Echo input
+
+; Test ADD (10 + 10 = 20)
+LOAD A
+ADD A
+OUTPUT 0
+
+; Test SUB (10 - 5 = 5)
+LOAD A
+SUB five
+OUTPUT 0
+
+; Test SHIFT (-2 means Shift Right 2 bits. 10 >> 2 = 2)
+LOAD A
+SHIFT negtwo
+OUTPUT 0
+
+; Test XOR (10 ^ 10 = 0)
+LOAD A
+XOR A
+OUTPUT 0
+
+HALT 0
+
+A: DATA 0
+five: DATA 5
+negtwo: DATA -2
