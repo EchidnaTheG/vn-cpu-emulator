@@ -238,7 +238,7 @@ x: DATA 0        ; Variable declaration
 3. **Run the emulator**:
 
 ```bash
-./build/emulator < out.txt
+./build/emulator out.txt
 # Enter a number when prompted
 # See the doubled result
 ```
@@ -388,20 +388,16 @@ The emulator simulates the fetch-decode-execute cycle of a real CPU, processing 
 
 ```bash
 # Basic execution
-./build/emulator < out.txt
+./build/emulator out.txt
 
-# With input redirection (for automated testing)
-echo "10" | ./build/emulator < out.txt
-
-# Piping assembler output directly (advanced)
-./build/assembler program.asm && ./build/emulator < out.txt
+# Assemble and run in sequence
+./build/assembler program.asm && ./build/emulator out.txt
 ```
 
 ### I/O Behavior
 
 - **INPUT**: Reads a 16-bit signed integer from stdin
 - **OUTPUT**: Writes the ACC value to stdout as decimal
-- After reading from file, stdin is reopened to `/dev/tty` for interactive input
 
 ---
 

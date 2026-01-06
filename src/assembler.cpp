@@ -3,6 +3,7 @@
 #include <sstream>
 #include "../include/coreutils.h++"
 #include <map>
+#include <bitset>
 
 // ===== OPCODE KEY STRING INT VALUE PAIR IN MAP =====
 std::map<std::string, uint16_t> opcodes = {
